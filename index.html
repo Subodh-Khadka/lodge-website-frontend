@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lodge</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
+    integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css">
+  <script src="https://unpkg.com/scrollreveal@4.3.2/dist/scrollreveal.min.js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_EMBED_API_KEY&callback=initMap" async defer></script> -->
+
+  <!-- Leaflet.js library and CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/index.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .first_section {
+      position: relative;
+      background-image: url("zero-take-WvHrrR1C5Po-unsplash (4).jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .centered-navbar {
+      position: absolute;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+
+    .navlinks {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navlinks li {
+      margin: 0 15px;
+    }
+
+    .navlinks a {
+      text-decoration: none;
+      color: white;
+      transition: color 0.3s;
+    }
+
+    .navlinks a:hover {
+      color: rgba(235, 65, 65, 0.712);
+    }
+
+    .reservation {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .services {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @media only screen and (max-width: 992px) {
+      .centered-navbar {
+        background-color: #eef8ff;
+        background: linear-gradient(to right, #00093c, #2d0b00);
+      }
+
+      .navbar-toggler-icon {
+        background-color: #fff;
+        border-top-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+
+      }
+    }
+  </style>
+</head>
+
+<body id="home">
+
+  <nav class="navbar navbar-expand-lg centered-navbar" style="position: fixed; z-index: 3;">
+    <div class="container-fluid nav-bar">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse navlinks" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#rooms">ROOMS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contactUs">CONTACT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cart.html">MYCART</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/food.html">FOOD MENU</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/foodCart.html">FOOD CART</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="first_section">
+    <div>
+      <h1>Welcome to The Lodge</h1>
+      <p>Your Perfect Getaway Destination</p>
+      <button type="button" class="btn btn-danger book_now_btn">
+        Book Now
+      </button>
+    </div>
+    <div class="reservation">Reservation: 9842608994</div>
+    <div></div>
+  </section>
+
+  <div id="rooms"></div>
+
+  <!-- Room Section -->
+  <div class="container-fluid pb-4" style="background-color:snow">
+
+    <div class="section_heading pt-4">
+      <p>OUR ROOMS</p>
+      <div class="red_line"></div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-4 room-card">
+          <div class="card custom-card animate__animated animate__fadeInUp"
+            style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add more room cards here -->
+        <div class="col-md-4">
+          <div class="card custom-card" style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add more room cards here -->
+        <div class="col-md-4">
+          <div class="card custom-card" style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;"></div>
+
+        <div class="col-md-4">
+          <div class="card custom-card" style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card custom-card" style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card custom-card" style="background-color: rgb(233, 243, 243);">
+            <img src="hotel-room.png" class="card-img-top" alt="Room Image">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Suite</h5>
+              <p class="card-text">
+                Experience luxury like never before in our spacious and elegantly designed Luxury Suite. With modern
+                amenities and stunning views, it's the perfect choice for a relaxing getaway.
+              </p>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="about"></div>
+  </div>
+
+  <!-- About Us Section -->
+  <div class="container-fluid about_us_section" style="background-color:rgb(245, 233, 233); font-family: serif;">
+    <div class="section_heading pt-2">
+      <p>ABOUT US</p>
+      <div class="red_line"></div>
+    </div>
+
+    <div class="container ">
+      <div class="row">
+        <div class="col-md-6" style="margin-top: 0rem;">
+          <div class="about-content">
+            <h2>Welcome to The Lodge</h2>
+            <p>
+              The Lodge has been your premier destination for relaxation and luxury for over a decade. With a commitment
+              to providing exceptional service and a tranquil atmosphere, we take pride in being a home away from home.
+              Nestled in the heart of nature, our resort offers stunning views, modern amenities, and a dedicated staff
+              to
+              ensure your stay is nothing short of extraordinary.
+            </p>
+
+            <p style="margin-top: 1rem;">
+              Experience the perfect blend of nature and comfort, where every moment is a memorable journey. Discover
+              the
+              serenity of our breathtaking surroundings and the warmth of our hospitality.
+            </p>
+
+            <div class="d-flex mt-4">
+              <div class="services">
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-wifi fa-lg"></i>
+                  <span class="ms-2">Free Wifi</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-square-parking fa-lg"></i>
+                  <span class="ms-2">Free Parking</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-martini-glass-citrus fa-lg"></i>
+                  <span class="ms-2">Restro and Bar</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <i class="fa-solid fa-bell-concierge fa-lg"></i>
+                  <span class="ms-2">Room Service</span>
+                </div>
+              </div>
+              <div class="ms-4">
+                <i class="fa-solid fa-fan fa-lg"></i>
+                <span class="ms-2">AC Rooms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="about-image">
+            <img src="/zero-take-WvHrrR1C5Po-unsplash (4).jpg" alt="Lodge Resort" class="img-fluid">
+            <p style="text-align: center; font-family: 'Courier New', Courier, monospace;"><strong>We care about
+                you</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Section -->
+  <div id="contactUs"></div>
+  <div class="container-fluid contactus_section" style="font-family: serif; background-color: whitesmoke;">
+    <div id="about" class="section_heading pt-1">
+      <p>CONTACT US</p>
+      <div class="red_line"></div>
+    </div>
+    <div class="container pt-4">
+      <div class="row">
+        <div class="col-md-6" style="">
+          <div class="col-md-6 contact-description">
+            <p style="font-size: xx-large;">Thank you for choosing us</p>
+            We can't wait to
+            welcome
+            you and provide
+            you
+            with an exceptional experience surrounded by nature and luxury.
+          </div>
+
+          <!-- map -->
+          <div class="col-md-6">
+            <div id="map" style="height: 100%; width: 100%;"></div>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+          <form style="background-color: white; border-start-end-radius: 2rem;" class="p-5 mb-5">
+            <div class="mb-3">
+              <label for="exampleInputName" class="form-label">Name</label>
+              <div id="name" class="input-line" contenteditable="true"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email</label>
+              <div id="input-line" class="input-line" contenteditable="true"></div>
+
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone No</label>
+              <div id="input-line" class="input-line" contenteditable="true"></div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+              <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+              <div id="input-line" class="input-line" contenteditable="true"></div>
+            </div>
+            <button type="submit" class="btn btn-danger">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" style="color: white; font-family: serif; font-size: small;">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <!-- <img width="50px" height="50px"
+            src="/lodge-logo-vector-modern-real-estate-two-tree-pine-element-icon-company-143985293.webp" alt=""> -->
+          <i class="fa-solid fa-hotel fa-2xl"></i>
+          <p>Experience the perfect blend of nature and comfort, where every moment is a memorable journey. Discover the
+            serenity of our breathtaking surroundings and the warmth of our hospitality.</p>
+        </div>
+
+        <div class="col-2"></div>
+
+        <div class="col-sm-12 col-md-3">
+          <p style="font-size: 1.5rem;">Join Us</p>
+          <div class="row">
+            <a href=""><i class="fa-brands fa-facebook fa-2xl"></i></a>
+          </div> <br>
+          <div class="row">
+            <a href=""><i class="fa-brands fa-instagram fa-2xl"></i></a>
+          </div><br>
+          <div class="row">
+            <a href=""><i class="fa-brands fa-twitter fa-2xl"></i></a>
+          </div>
+
+        </div>
+
+        <div class="col-sm-12 col-md-3">
+          <address class="pt-0">
+            <span style="font-size: 1.5rem;">Visit Us</span><br>
+            1234 Pine Tree Lane<br>
+            Natureville, Country<br>
+            Zip Code: 12345<br>
+            9840945344 <br>
+            <span>&copy Copyright 2023</span>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  const navbar = document.querySelector(".centered-navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+      navbar.classList.add("fixed-top", "bg-black", "transition");
+    } else {
+      navbar.classList.remove("fixed-top", "bg-black");
+    }
+  });
+</script>
+
+</html>
